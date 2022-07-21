@@ -1,0 +1,1 @@
+使用Spring initializr（网址：https://start.spring.io）创建maven项目，使用idea社区版打开

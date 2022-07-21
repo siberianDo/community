@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+</head>
+<body>
+<P>
+    <input type="button" onclick="send();" value="发送">
+</P>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script>
+    function send(){
+        $.post(
+<!--            访问路径-->
+            "/community/test/ajax",
+<!--            数据传输-->
+            {"name":"王五","age":20},
+<!--            服务器返回数据处理-->
+            function(data){
+<!--            控制台打印-->
+                console.log(data),
+<!--                将数据转换成对象-->
+                data=$.parseJSON(data),
+<!--                控制台打印转换后的数据类型-->
+                console.log(typeof(data))
+            }
+        )
+    }
+
+</script>
+</html>
