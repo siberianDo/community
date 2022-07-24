@@ -2,9 +2,11 @@ package com.our.community;
 
 import com.our.community.dao.mapper.DiscussPostMapper;
 import com.our.community.dao.mapper.LoginTicketMapper;
+import com.our.community.dao.mapper.MessageMapper;
 import com.our.community.dao.mapper.UserMapper;
 import com.our.community.entity.DiscussPost;
 import com.our.community.entity.LoginTicket;
+import com.our.community.entity.Message;
 import com.our.community.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +31,9 @@ public class MapperTests {
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelectUser() {
@@ -102,13 +107,36 @@ public class MapperTests {
      * 测试登录凭证状态查询及修改
      */
     @Test
-    public void testSelectLoginTicket(){
-        LoginTicket loginTicket= loginTicketMapper.selectByTicket("abc");
+    public void testSelectLoginTicket() {
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("abc");
         System.out.println(loginTicket);
 
-        loginTicketMapper.updateStatus("abc",1);
+        loginTicketMapper.updateStatus("abc", 1);
         loginTicket = loginTicketMapper.selectByTicket("abc");
         System.out.println(loginTicket);
+    }
+
+    /**
+     * 测试message的各个测试方法
+     */
+    @Test
+    public void testSelectMessage() {
+//        //1
+        List<Message> messageList1 = messageMapper.selectConversations(111, 0, 20);
+        for (Message m : messageList1) {
+            System.out.println(m.getContent());
+        }
+        //2
+        System.out.println(messageMapper.selectConversationCount(111));
+//        //3
+        List<Message> messageList2 = messageMapper.selectDetailByConversationId("111_112", 0, 10);
+        for (Message m : messageList2) {
+            System.out.println(m.getContent());
+        }
+//        //4
+        System.out.println(messageMapper.selectDetailConversationCount("111_112"));
+//        //5
+        System.out.println(messageMapper.selectUnreadConversation(111, null));
     }
 
 }
