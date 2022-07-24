@@ -47,10 +47,24 @@ public class DiscussPostService {
 
     /**
      * 查询帖子详情
+     *
      * @param id
      * @return
      */
-    public DiscussPost findDiscussPostById(int id){
+    public DiscussPost findDiscussPostById(int id) {
         return discussPostMapper.selectDiscussPostById(id);
+    }
+
+
+    /**
+     * 更新评论数量
+     *
+     * @param id
+     * @param commentCount
+     * @return
+     */
+    public int updateCommentCount(int id, int commentCount) {
+
+        return discussPostMapper.updateCommentCountById(id, commentCount);
     }
 }
