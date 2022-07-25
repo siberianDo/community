@@ -226,6 +226,7 @@ public class UserService implements CommunityConstant {
 
     /**
      * 重置密码
+     *
      * @param email
      * @param password
      * @return
@@ -248,11 +249,15 @@ public class UserService implements CommunityConstant {
         }
 
         //以上检查正确后开始重置密码
-        password =CommunityUtil.md5(password+user.getSalt());
-        userMapper.updatePassword(user.getId(),password);
+        password = CommunityUtil.md5(password + user.getSalt());
+        userMapper.updatePassword(user.getId(), password);
 
-        map.put("user",user);
+        map.put("user", user);
         return map;
+    }
+
+    public User findUserIdByUsername(String username) {
+        return userMapper.selectByName(username);
     }
 
 }

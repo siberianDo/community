@@ -2,8 +2,10 @@ package com.our.community.service;
 
 import com.our.community.dao.mapper.MessageMapper;
 import com.our.community.entity.Message;
+import com.our.community.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -12,6 +14,9 @@ public class MessageService {
 
     @Autowired
     private MessageMapper messageMapper;
+
+    @Autowired
+    private SensitiveFilter sensitiveFilter;
 
 
     public List<Message> findConversations(int userId, int offset, int limit) {
@@ -32,5 +37,22 @@ public class MessageService {
 
     public int findUnreadConversation(int userId, String conversationId) {
         return messageMapper.selectUnreadConversation(userId, conversationId);
+    }
+
+    public int insertMessage(Message message){
+
+        //私信内容过滤
+        message.setContent(HtmlUtils.htmlEscape(message.getContent()));
+
+        message.setContent(sensitiveFilter.filter(message.getContent()));
+
+        return messageMapper.insertConversation(message);
+    }
+
+    public int updateMessageStatus(List<Integer> ids){
+
+
+
+        return messageMapper.updateConversationStatus(ids, 1);
     }
 }

@@ -4,7 +4,7 @@ $(function(){
 
 function getVerifyCode(){
 //    通过ID获取字段值
-    var email =$("#your-email").val();
+    var email =$("#your-email").value();
 //    判断email是否为空
     if(!email){
 //    通过弹出框方式提示错误信息
@@ -15,7 +15,7 @@ function getVerifyCode(){
         CONTEXT_PATH + "/forget/code",
         {"email":email},
         function(data){
-            data=$.parseJson(data);
+            data=$.parseJSON(data);
             if(data.code==0){
                 alert("验证码已发送到您的邮箱，请注意查看！")
             }else{
