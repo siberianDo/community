@@ -161,5 +161,11 @@ public class MessageController {
         return CommunityUtil.getJSONString(0);
     }
 
+    @RequestMapping(path = "/letter/del", method = RequestMethod.GET)
+    public String delLetter(int id) {
+        messageService.delMessage(id);
+        return CommunityUtil.getJSONString(0);
+    }
+
 
 }

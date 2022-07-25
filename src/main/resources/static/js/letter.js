@@ -1,6 +1,6 @@
 $(function () {
     $("#sendBtn").click(send_letter);
-    $(".close").click(delete_msg);
+    $(".delMessage").click(delete_msg);
 });
 
 function send_letter() {
@@ -23,13 +23,28 @@ function send_letter() {
             $("#hintModal").modal("show");
             setTimeout(function () {
                 $("#hintModal").modal("hide");
-                location.reload();
+                window.location.reload();
             }, 2000);
         }
     );
 }
 
 function delete_msg() {
-    // TODO 删除数据
-    $(this).parents(".media").remove();
+
+    //获取id
+    var id = $(this).prev().val();
+    console.log(id);
+    $.get(
+        CONTEXT_PATH + "/letter/del",
+        {"id": id},
+        function (data) {
+            data = $.parseJSON(data);
+            if (data.code == 0) {
+                // TODO 删除数据
+                $(this).parents(".media").remove();
+            } else {
+                alert(data.msg);
+            }
+        }
+    )
 }

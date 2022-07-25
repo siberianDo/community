@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,7 +40,7 @@ public class MessageService {
         return messageMapper.selectUnreadConversation(userId, conversationId);
     }
 
-    public int insertMessage(Message message){
+    public int insertMessage(Message message) {
 
         //私信内容过滤
         message.setContent(HtmlUtils.htmlEscape(message.getContent()));
@@ -49,10 +50,13 @@ public class MessageService {
         return messageMapper.insertConversation(message);
     }
 
-    public int updateMessageStatus(List<Integer> ids){
-
-
-
+    public int updateMessageStatus(List<Integer> ids) {
         return messageMapper.updateConversationStatus(ids, 1);
+    }
+
+    public int delMessage(int id) {
+        List<Integer> ids = new ArrayList<>();
+        ids.add(id);
+        return messageMapper.updateConversationStatus(ids, 2);
     }
 }
