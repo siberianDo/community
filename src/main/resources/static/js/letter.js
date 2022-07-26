@@ -40,11 +40,11 @@ function delete_msg() {
         function (data) {
             data = $.parseJSON(data);
             if (data.code == 0) {
-                // TODO 删除数据
-                $(this).parents(".media").remove();
+                alert("删除私信成功！")
             } else {
                 alert(data.msg);
             }
         }
     )
+    $(this).parents(".media").remove();
 }

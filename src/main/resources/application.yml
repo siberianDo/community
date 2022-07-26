@@ -1,0 +1,65 @@
+#Changing the port Number ServiceProperties
+server:
+  port: 8080
+#Adding Access Path
+  servlet.context-path: /community
+#Disable the Thymeleaf cache,
+#otherwise the page refresh will be affected,
+#It is better to open the project when it is online
+#ThymeleafProperties
+spring:
+  thymeleaf:
+    cache: false
+
+#mybatis-spring   mysql configuration
+# DatabaseSourceProperties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community?characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 30000
+
+  #logger
+  #logging.level.com.our.community=debug
+  #logging.file=d:/workSpace/javaSpace/community.log
+
+  #Spring Mail setting MailProperties
+  mail:
+    host: smtp.sina.com
+    port: 465
+    username: 123205wq@sina.com
+    password: 47268896116620c4
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+    # SSL Config
+    default-encoding: UTF-8
+
+# MybatisProperties
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.our.community.entity
+  configuration:
+    useGeneratedKeys: true
+    mapUnderscoreToCamelCase: true
+
+# community Email Sending Configuration
+community:
+  path:
+    domain: http://localhost:8080
+    upload: D:/workSpace/javaSpace/data/upload
+
